@@ -57,10 +57,6 @@ def send_email(product_title, price, product_url):
 
 
 def check_price(product_url, target_price):
-    """
-    Scrape Amazon product page for the current price.
-    Log the price and send email if below target.
-    """
     try:
         response = requests.get(product_url, headers=HEADERS, timeout=10)
         soup = BeautifulSoup(response.content, "html.parser")
@@ -99,7 +95,6 @@ def check_price(product_url, target_price):
 
 
 def plot_price_history():
-    """Read the CSV and plot the price changes over time."""
     if not os.path.exists(CSV_FILE):
         st.info("No price history available yet.")
         return
@@ -124,7 +119,6 @@ def plot_price_history():
 
 
 def start_background_check(product_url, target_price):
-    """Run price check in a background thread every 12 hours."""
     def job():
         while True:
             check_price(product_url, target_price)
